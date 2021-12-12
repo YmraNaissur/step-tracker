@@ -72,11 +72,19 @@ public class Menu {
         System.out.println("Введите новое целевое количество шагов.");
         int targetNumberOfSteps = -1;
         while (targetNumberOfSteps < 0) {
-            System.out.println("Количество шагов не должно быть отрицательным");
+            System.out.println("Количество шагов не должно быть отрицательным.");
             targetNumberOfSteps = scanner.nextInt();
         }
         tracker.setTargetNumberOfSteps(targetNumberOfSteps);
         System.out.println();
+    }
+
+    /**
+     * Запрашивает у пользователя название месяца и выводит на экран
+     * статистику за этот месяц, как описано в ТЗ.
+     */
+    public void printStatistics() {
+        // TODO implement statistics
     }
 
     public void printCommandDoesNotExist() {

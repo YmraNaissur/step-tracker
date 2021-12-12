@@ -1,7 +1,6 @@
 package com.naissur;
 
 import com.naissur.menu.Menu;
-import com.naissur.tracker.StepTracker;
 
 /**
  * @author Max Karavaev (daily.spb@yandex.ru)
@@ -19,7 +18,7 @@ public class Main {
                     menu.saveNumberOfSteps();
                     break;
                 case "2":
-                    // TODO printStatistics
+                    menu.printStatistics();
                     break;
                 case "3":
                     menu.changeTargetNumberOfSteps();
