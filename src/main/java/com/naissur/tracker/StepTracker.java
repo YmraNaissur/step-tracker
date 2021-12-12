@@ -1,6 +1,7 @@
 package com.naissur.tracker;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,8 @@ public class StepTracker {
         targetNumberOfSteps = 10_000;
         String[] MONTHS = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
                 "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
-        Arrays.stream(MONTHS).forEach(m -> storage.put(m, new Integer[30]));
+        Arrays.stream(MONTHS).forEach(m ->
+                storage.put(m, Collections.nCopies(30, 0).toArray(new Integer[0])));
     }
 
     public static StepTracker getInstance() {
@@ -39,12 +41,23 @@ public class StepTracker {
         storage.put(month, monthDays);
     }
 
-    public void setTargetNumberOfSteps(int targetNumberOfSteps) {
-        this.targetNumberOfSteps = targetNumberOfSteps;
+    /**
+     * Возвращает строку, содержащую статистику пройденных шагов по
+     * дням, как описано в ТЗ.
+     * @param month название месяца.
+     */
+    public String buildStatisticsByDays(String month) {
+        Integer[] days = storage.get(month);
+        StringBuilder statBuilder = new StringBuilder();
+        for (int i = 1; i <= days.length; i++) {
+            statBuilder.append(i).append(" день: ").append(days[i - 1].intValue()).append(", ");
+        }
+        // в результирующей строке уберём последнюю запятую
+        return statBuilder.toString().replaceAll(", $", "");
     }
 
-    public int getTargetNumberOfSteps() {
-        return targetNumberOfSteps;
+    public void setTargetNumberOfSteps(int targetNumberOfSteps) {
+        this.targetNumberOfSteps = targetNumberOfSteps;
     }
 
     // storage is needed in tests

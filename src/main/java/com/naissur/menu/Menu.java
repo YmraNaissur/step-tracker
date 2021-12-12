@@ -49,21 +49,6 @@ public class Menu {
         System.out.println();
     }
 
-    private String askForMonth() {
-        System.out.println("Введите название месяца:");
-        return scanner.next();
-    }
-
-    private int askForDay() {
-        System.out.println("Введите номер дня:");
-        return scanner.nextInt();
-    }
-
-    private int askForNumberOfSteps() {
-        System.out.println("Введите количество шагов:");
-        return scanner.nextInt();
-    }
-
     /**
      * Запрашивает у пользователя новое положительное количество шагов
      * и устанавливает его в качестве целевого в классе StepTracker.
@@ -85,13 +70,31 @@ public class Menu {
      */
     public void printStatistics() {
         // TODO implement statistics
+        String month = askForMonth();
+        System.out.println(tracker.buildStatisticsByDays(month));
     }
 
     public void printCommandDoesNotExist() {
         System.out.println("Извините, такой команды пока не существует.");
+        System.out.println();
     }
 
     public void printGoodBye() {
         System.out.println("До встречи!");
+    }
+
+    private String askForMonth() {
+        System.out.println("Введите название месяца:");
+        return scanner.next();
+    }
+
+    private int askForDay() {
+        System.out.println("Введите номер дня:");
+        return scanner.nextInt();
+    }
+
+    private int askForNumberOfSteps() {
+        System.out.println("Введите количество шагов:");
+        return scanner.nextInt();
     }
 }
