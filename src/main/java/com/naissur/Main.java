@@ -9,7 +9,6 @@ import com.naissur.tracker.StepTracker;
 public class Main {
 
     private static final Menu menu = Menu.getInstance();
-    private static final StepTracker tracker = StepTracker.getInstance();
 
     public static void main(String[] args) {
         while (true) {
@@ -17,16 +16,13 @@ public class Main {
             String command = menu.askForCommand();
             switch (command) {
                 case "1":
-                    String month = menu.askForMonth();
-                    int day = menu.askForDay();
-                    int numberOfSteps = menu.askForNumberOfSteps();
-                    tracker.saveNumberOfSteps(month, day, numberOfSteps);
+                    menu.saveNumberOfSteps();
                     break;
                 case "2":
                     // TODO printStatistics
                     break;
                 case "3":
-                    // TODO changeTargetNumberOfSteps
+                    menu.changeTargetNumberOfSteps();
                     break;
                 case "4":
                     menu.printGoodBye();

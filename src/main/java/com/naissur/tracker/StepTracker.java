@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Max Karavaev
  */
 public class StepTracker {
-    private Map<String, Integer[]> storage;
+    private final Map<String, Integer[]> storage;
     private int targetNumberOfSteps;
     private static final StepTracker instance = new StepTracker();
 
@@ -39,12 +39,16 @@ public class StepTracker {
         storage.put(month, monthDays);
     }
 
-    // to be deleted
-    public void printAll() {
-        storage.forEach((key, value) -> System.out.println(key + " : " + Arrays.toString(value)));
+    public void setTargetNumberOfSteps(int targetNumberOfSteps) {
+        this.targetNumberOfSteps = targetNumberOfSteps;
     }
 
-    public Map<String, Integer[]> getStorage() {
+    public int getTargetNumberOfSteps() {
+        return targetNumberOfSteps;
+    }
+
+    // storage is needed in tests
+    protected Map<String, Integer[]> getStorage() {
         return storage;
     }
 }
