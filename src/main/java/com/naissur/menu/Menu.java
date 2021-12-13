@@ -69,17 +69,16 @@ public class Menu {
      * статистику за этот месяц, как описано в ТЗ.
      */
     public void printStatistics() {
-        // TODO implement statistics
         String month = askForMonth();
         System.out.println("Статистика за " + month.toLowerCase() + ":");
         System.out.println(tracker.buildStatisticsByDays(month));
         System.out.println("Общее количество шагов: " + tracker.getTotalNumberOfSteps(month));
         System.out.println("Максимальное количество шагов: " + tracker.getMaxNumberOfSteps(month));
         System.out.println("Среднее количество шагов: " + tracker.getAverageNumberOfSteps(month));
-        System.out.println("Пройденная дистанция: " + tracker.getDistanceTravelled(month) + " км");
-        System.out.println("Количество сожжённых килокалорий: "
-                + tracker.getKilocaloriesBurned(month));
-
+        System.out.println("Пройденная дистанция (км): " + tracker.getDistanceTravelled(month));
+        System.out.println("Сожжено килокалорий: " + tracker.getKilocaloriesBurned(month));
+        System.out.println("Лучшая серия (дней): " + tracker.getLongestSeries(month));
+        System.out.println();
     }
 
     public void printCommandDoesNotExist() {

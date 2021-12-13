@@ -93,6 +93,31 @@ public class StepTracker {
         return Converter.convertStepsToKilocalories(getTotalNumberOfSteps(month));
     }
 
+    /**
+     * Ищет лучшую серию: максимальное количество подряд идущих дней в указанном месяце,
+     * в течение которых количество шагов за день было выше целевого.
+     * @return количество дней в лучшей серии.
+     */
+    public int getLongestSeries(String month) {
+        int longestSeries = 0;
+        int currentSeries = 0;
+
+        int[] days = storage.get(month);
+
+        for (int numberOfSteps: days) {
+            if (numberOfSteps > targetNumberOfSteps) {
+                currentSeries++;
+            } else if (currentSeries > longestSeries) {
+                longestSeries = currentSeries;
+                currentSeries = 0;
+            } else {
+                currentSeries = 0;
+            }
+        }
+
+        return longestSeries;
+    }
+
     public void setTargetNumberOfSteps(int targetNumberOfSteps) {
         this.targetNumberOfSteps = targetNumberOfSteps;
     }
