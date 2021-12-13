@@ -1,5 +1,7 @@
 package com.naissur.tracker;
 
+import com.naissur.util.Converter;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +53,44 @@ public class StepTracker {
         }
         // в результирующей строке уберём последнюю запятую
         return statBuilder.toString().replaceAll(", $", "");
+    }
+
+    /**
+     * Возвращает общее количество шагов, пройденных за указанный месяц.
+     */
+    public int getTotalNumberOfSteps(String month) {
+        return Arrays.stream(storage.get(month)).sum();
+    }
+
+    /**
+     * Возвращает максимальное количество шагов, пройденных за указанный месяц.
+     * @return мексимальное количество шагов или 0, если его не существует.
+     */
+    public int getMaxNumberOfSteps(String month) {
+        return Arrays.stream(storage.get(month)).max().orElse(0);
+    }
+
+    /**
+     * Возвращает среднее количество шагов, пройденных за указанный месяц.
+     * @return среднее количество шагов или 0.0, если его не существует.
+     */
+    public double getAverageNumberOfSteps(String month) {
+        return Arrays.stream(storage.get(month)).average().orElse(0.0);
+    }
+
+    /**
+     * Рассчитывает пройденное за указанный месяц расстояние.
+     * @return расстояние в километрах.
+     */
+    public double getDistanceTravelled(String month) {
+        return Converter.convertStepsToKilometers(getTotalNumberOfSteps(month));
+    }
+
+    /**
+     * Рассчитывает количество килокалорий, сожжённых за указанный месяц.
+     */
+    public double getKilocaloriesBurned(String month) {
+        return Converter.convertStepsToKilocalories(getTotalNumberOfSteps(month));
     }
 
     public void setTargetNumberOfSteps(int targetNumberOfSteps) {
