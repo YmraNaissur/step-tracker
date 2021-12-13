@@ -1,7 +1,6 @@
 package com.naissur.tracker;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import java.util.Map;
  * @author Max Karavaev
  */
 public class StepTracker {
-    private final Map<String, Integer[]> storage;
+    private final Map<String, int[]> storage;
     private int targetNumberOfSteps;
     private static final StepTracker instance = new StepTracker();
 
@@ -21,8 +20,7 @@ public class StepTracker {
         targetNumberOfSteps = 10_000;
         String[] MONTHS = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
                 "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
-        Arrays.stream(MONTHS).forEach(m ->
-                storage.put(m, Collections.nCopies(30, 0).toArray(new Integer[0])));
+        Arrays.stream(MONTHS).forEach(m -> storage.put(m, new int[30]));
     }
 
     public static StepTracker getInstance() {
@@ -36,9 +34,8 @@ public class StepTracker {
      * @param numberOfSteps количество шагов.
      */
     public void saveNumberOfSteps(String month, int day, int numberOfSteps) {
-        Integer[] monthDays = storage.get(month);
-        monthDays[day - 1] = numberOfSteps;
-        storage.put(month, monthDays);
+        int[] days = storage.get(month);
+        days[day - 1] = numberOfSteps;
     }
 
     /**
@@ -47,10 +44,10 @@ public class StepTracker {
      * @param month название месяца.
      */
     public String buildStatisticsByDays(String month) {
-        Integer[] days = storage.get(month);
+        int[] days = storage.get(month);
         StringBuilder statBuilder = new StringBuilder();
         for (int i = 1; i <= days.length; i++) {
-            statBuilder.append(i).append(" день: ").append(days[i - 1].intValue()).append(", ");
+            statBuilder.append(i).append(" день: ").append(days[i - 1]).append(", ");
         }
         // в результирующей строке уберём последнюю запятую
         return statBuilder.toString().replaceAll(", $", "");
@@ -61,7 +58,7 @@ public class StepTracker {
     }
 
     // storage is needed in tests
-    protected Map<String, Integer[]> getStorage() {
+    protected Map<String, int[]> getStorage() {
         return storage;
     }
 }
