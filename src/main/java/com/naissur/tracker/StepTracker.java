@@ -102,21 +102,18 @@ public class StepTracker {
         int longestSeries = 0;
         int currentSeries = 0;
 
-        int[] days = storage.get(month);
-
-        for (int numberOfSteps: days) {
+        for (int numberOfSteps: storage.get(month)) {
             if (numberOfSteps > targetNumberOfSteps) {
                 currentSeries++;
-            } else if (currentSeries > longestSeries) {
-                longestSeries = currentSeries;
-                currentSeries = 0;
             } else {
+                longestSeries = Integer.max(currentSeries, longestSeries);
                 currentSeries = 0;
             }
         }
 
-        return longestSeries;
+        return Integer.max(currentSeries, longestSeries);
     }
+
 
     public void setTargetNumberOfSteps(int targetNumberOfSteps) {
         this.targetNumberOfSteps = targetNumberOfSteps;
